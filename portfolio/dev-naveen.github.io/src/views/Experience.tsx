@@ -114,7 +114,7 @@ const Experience: React.FC = () => {
         };
 
         fetchExperiences();
-    }, [fallbackExperiences]);
+    }, []);
 
     const formatPeriod = (startDate: string, endDate?: string) => {
         const formatDate = (dateString: string) => {
