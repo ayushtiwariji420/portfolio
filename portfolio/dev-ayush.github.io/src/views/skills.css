@@ -1,0 +1,20 @@
+@keyframes scaleRotate {
+    0%, 100% {
+      transform: scale(1) rotate(360deg);
+      border-radius: 50%;
+    }
+    /* 25%, 75% {
+      transform: scale(1.1) rotate(0deg);
+      border-radius: 50%;
+    } */
+    50% {
+      transform: scale(1.1) rotate(180deg);
+      border-radius: 50%;
+    }
+  }
+
+  
+  .animate-scale-rotate {
+    animation: scaleRotate 1s ease-in-out;
+  }
+  
