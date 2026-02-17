@@ -4,148 +4,82 @@ require('dotenv').config();
 async function updateEducation() {
   const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false
-    }
+    ssl: { rejectUnauthorized: false }
   });
 
   try {
-    console.log('Connecting to database...');
     const client = await pool.connect();
+    console.log('Connected — updating data...');
 
-    console.log('Removing old education entries...');
+    // 1) Delete 7 Frames experience
+    const deleteExpResult = await client.query(
+      `DELETE FROM experiences WHERE id = 'exp_7_frames'`
+    );
+    console.log(`✅ Removed 7 Frames experience (${deleteExpResult.rowCount} rows deleted)`);
 
-    // Remove all existing education entries
-    const deleteResult = await client.query('DELETE FROM educations');
-    console.log(`✅ Removed ${deleteResult.rowCount} old education entries`);
+    // 2) Clear existing educations
+    const deleteEduResult = await client.query(`DELETE FROM educations`);
+    console.log(`✅ Cleared ${deleteEduResult.rowCount} existing educations`);
 
-    console.log('Adding new education entries...');
+    // 3) Insert MCA (Master of Computer Applications)
+    await client.query(
+      `INSERT INTO educations (
+        id, degree, institution, start_date, end_date, location, grade,
+        description, achievements, courses, order_index, created_at, updated_at
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`,
+      [
+        'edu_mca_' + Date.now(),
+        'Master of Computer Applications (MCA)',
+        'Dr. A P J Abdul Kalam University',
+        '2022-06-01',
+        '2024-07-31',
+        'Indore',
+        '7.8',
+        JSON.stringify(['Advanced studies in Computer Science and Applications']),
+        JSON.stringify(['Completed MCA with grade 7.8']),
+        JSON.stringify(['Data Structures', 'Web Development', 'Machine Learning', 'Database Management']),
+        0
+      ]
+    );
+    console.log('✅ Added MCA (Dr. A P J Abdul Kalam University)');
 
-    const newEducations = [
-      {
-        id: 'edu_mca_rgpv_' + Date.now(),
-        degree: 'Master of Computer Applications (MCA)',
-        institution: 'RGPV University',
-        start_date: '2023',
-        end_date: '2025',
-        location: 'Bhopal, Madhya Pradesh, India',
-        grade: '',
-        description: [
-          'Pursuing Master of Computer Applications',
-          'Focus on advanced computer science concepts and applications',
-          'Specialization in software development and system design'
-        ],
-        achievements: [
-          'Currently pursuing MCA degree',
-          'Gaining expertise in advanced computing technologies'
-        ],
-        courses: [
-          'Advanced Programming',
-          'Database Management Systems',
-          'Software Engineering',
-          'Web Technologies',
-          'Data Structures and Algorithms',
-          'Computer Networks',
-          'Operating Systems'
-        ],
-        institution_url: '',
-        order_index: 0
-      },
-      {
-        id: 'edu_bca_vikram_' + Date.now(),
-        degree: 'Bachelor of Computer Application (BCA), Computer Science',
-        institution: 'Vikram University',
-        start_date: '2020',
-        end_date: '2023',
-        location: 'Ujjain, Madhya Pradesh, India',
-        grade: '',
-        description: [
-          'Completed Bachelor of Computer Applications in Computer Science',
-          'Comprehensive study of computer science fundamentals and applications',
-          'Hands-on experience with programming and software development'
-        ],
-        achievements: [
-          'Successfully completed BCA degree',
-          'Developed strong foundation in computer science',
-          'Gained practical programming skills'
-        ],
-        courses: [
-          'Programming Fundamentals',
-          'Data Structures',
-          'Computer Organization',
-          'Database Management',
-          'Web Development',
-          'Software Engineering',
-          'Computer Networks',
-          'Operating Systems',
-          'Mathematics for Computing'
-        ],
-        institution_url: '',
-        order_index: 1
-      }
-    ];
+    // 4) Insert Bachelor's degree
+    await client.query(
+      `INSERT INTO educations (
+        id, degree, institution, start_date, end_date, location, grade,
+        description, achievements, courses, order_index, created_at, updated_at
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`,
+      [
+        'edu_bsc_' + Date.now(),
+        'Bachelor of Science in Computer Science',
+        'Maharaja Chhatarsal College of Education',
+        '2017-06-01',
+        '2020-05-31',
+        'Chhatarpur',
+        'B',
+        JSON.stringify(['Undergraduate degree in Computer Science']),
+        JSON.stringify(['Active in theatre, music, and anchoring']),
+        JSON.stringify(['Programming', 'Database Design', 'Web Technologies', 'Software Engineering']),
+        1
+      ]
+    );
+    console.log('✅ Added Bachelor\'s degree (Maharaja Chhatarsal College)');
 
-    let addedCount = 0;
-
-    for (const education of newEducations) {
-      try {
-        const insertQuery = `
-          INSERT INTO educations (
-            id, degree, institution, start_date, end_date, location, grade,
-            description, achievements, courses, institution_url, order_index,
-            created_at, updated_at
-          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
-        `;
-
-        const values = [
-          education.id,
-          education.degree,
-          education.institution,
-          education.start_date,
-          education.end_date,
-          education.location,
-          education.grade,
-          JSON.stringify(education.description),
-          JSON.stringify(education.achievements),
-          JSON.stringify(education.courses),
-          education.institution_url,
-          education.order_index
-        ];
-
-        await client.query(insertQuery, values);
-        addedCount++;
-        console.log(`✅ Added: ${education.degree} from ${education.institution}`);
-
-      } catch (error) {
-        console.error(`❌ Error adding ${education.degree}:`, error.message);
-      }
-    }
-
-    console.log(`\n🎉 Summary:`);
-    console.log(`   Removed: ${deleteResult.rowCount} old entries`);
-    console.log(`   Added: ${addedCount} new entries`);
-
-    // Show the updated education
-    console.log('\n=== UPDATED EDUCATION ===');
-    const allEducation = await client.query(`
-      SELECT degree, institution, start_date, end_date, location
-      FROM educations
-      ORDER BY order_index
-    `);
-
-    allEducation.rows.forEach((edu, index) => {
-      console.log(`${index + 1}. ${edu.degree}`);
+    // Show summary
+    console.log('\n=== EDUCATION SUMMARY ===');
+    const allEdu = await client.query(
+      `SELECT degree, institution, start_date, end_date, grade FROM educations ORDER BY order_index`
+    );
+    allEdu.rows.forEach((edu, i) => {
+      console.log(`${i + 1}. ${edu.degree}`);
       console.log(`   Institution: ${edu.institution}`);
-      console.log(`   Duration: ${edu.start_date} - ${edu.end_date}`);
-      console.log(`   Location: ${edu.location}`);
-      console.log('---');
+      console.log(`   Duration: ${edu.start_date} - ${edu.end_date} | Grade: ${edu.grade}`);
     });
 
-    console.log(`\nTotal education entries: ${allEducation.rows.length}`);
-
     await client.release();
-  } catch (error) {
-    console.error('Error updating education:', error);
+  } catch (err) {
+    console.error('Error updating education:', err);
+    process.exitCode = 1;
   } finally {
     await pool.end();
   }

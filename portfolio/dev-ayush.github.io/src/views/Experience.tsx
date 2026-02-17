@@ -38,33 +38,49 @@ const Experience: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    // Fallback experiences (from the original hardcoded data)
+    // Fallback experiences (updated to match provided content)
     const fallbackExperiences: Experience[] = [
         {
-            id: 'fallback-1',
-            title: 'Sr. AI/ML engineer',
-            company: 'Steve\'s AI LAB',
-            period: 'Jun 2022 - Present',
+            id: 'fallback-freelance',
+            title: 'Freelance Generative AI Developer',
+            company: 'Self Employed · Freelance',
+            period: 'Sep 2021 - Present',
             description: [
-                'Developed and deployed over 10 AI/ML-driven software applications using frameworks such as SageMaker and FastAPI',
-                'Incorporated MLOps practices for streamlined deployment, monitoring, and scalability on AWS and Azure',
-                'Led a team of 20 developers, coordinating project tasks and ensuring efficient collaboration',
-                'Integrated 5+ machine learning models into production systems and optimized performance',
-                'Mentored junior engineers to foster collaboration and technical growth'
+                'Helping startups, agencies, and enterprises build end-to-end Gen AI applications using LLMs, RAG, LangChain, OpenAI, and Pinecone.',
+                'Developed custom AI chatbots using OpenAI & LangChain',
+                'Integrated RAG pipelines for enterprise data',
+                'Built AI tools for document parsing, summarization, and automation',
+                'Worked with ChromaDB, Pinecone, Weaviate',
+                'Delivered projects using FastAPI, Django, and Streamlit',
+                'Deployed scalable AI services on AWS & Docker',
+                'Open for short/long-term freelance projects'
             ],
-            type: 'work'
+            type: 'work',
+            technologies: ['Generative AI','Python']
         },
         {
-            id: 'fallback-2',
-            title: 'Operations Manager',
-            company: '7 Frames',
-            period: '2019 - 2021',
+            id: 'fallback-steve',
+            title: 'Python Developer',
+            company: 'Steves AI Lab Pvt Ltd',
+            period: 'Feb 2023 - Aug 2025',
             description: [
-                'Managed a team of 10 operations staff',
-                'Provide Technical training and support to the team',
-                'Collaborated with CEO/CTO to set up the operations department',
+                'Worked on AI-powered applications and automation solutions using Python and modern frameworks.',
+                'Contributed to model integration, API development and data-processing pipelines.'
             ],
-            type: 'work'
+            type: 'work',
+            technologies: ['Python','OpenAI']
+        },
+        {
+            id: 'fallback-shiva',
+            title: 'Full Stack Developer (Internship)',
+            company: 'Shiva Concept Solution',
+            period: 'Mar 2022 - Oct 2022',
+            description: [
+                'Internship — worked on front-end and back-end tasks using modern web stacks and Django.',
+                'HTML5, CSS, JavaScript, Bootstrap, Python, Django'
+            ],
+            type: 'work',
+            technologies: ['HTML5','CSS','JavaScript','Bootstrap','Python','Django']
         }
     ];
 
