@@ -28,9 +28,9 @@ const EducationComponent: React.FC = () => {
     };
 
     const formatDateRange = (startDate: string, endDate?: string) => {
-        const start = startDate;
-        const end = endDate || 'Present';
-        return `${start} - ${end}`;
+        const startYear = startDate.split('-')[0];
+        const endYear = endDate ? endDate.split('-')[0] : 'Present';
+        return `${startYear} - ${endYear}`;
     };
 
     if (loading) {
