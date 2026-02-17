@@ -17,7 +17,7 @@ export default function AdminLoginPage() {
     setIsLoading(true);
     
     // Simple authentication check
-    if (credentials.username === 'Naveen' && credentials.password === 'Naveen@4513') {
+    if (credentials.username === 'Ayush' && credentials.password === 'Ayush@123') {
       // Store auth token
       localStorage.setItem('admin_auth_token', 'authenticated');
       // Redirect to admin dashboard

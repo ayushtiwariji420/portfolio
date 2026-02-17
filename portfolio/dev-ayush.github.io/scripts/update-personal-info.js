@@ -29,19 +29,19 @@ async function updatePersonalInfo() {
     `;
 
     const newSocialLinks = {
-      github: 'https://github.com/naveenpatidar1211',
+      github: 'https://github.com/ayushtiwariji420',
       twitter: '',
       website: '',
       youtube: '',
-      linkedin: 'https://www.linkedin.com/in/naveenpatidar1/',
+      linkedin: 'https://www.linkedin.com/in/ayush-tiwari-b5799a229/',
       instagram: ''
     };
 
     const values = [
     'Ayush Tiwari',                    // name
       'Python & Gen. AI Developer',        // title
-      'naveenpatidar951@gmail.com',        // email
-      '9171809182',                        // phone
+      'ayushtiwariji420@gmail.com',        // email
+      '+91 91795 17152',                   // phone
       'Indore(M.P.) INDIA',                // location
       JSON.stringify(newSocialLinks)       // social_links
     ];
