@@ -14,7 +14,7 @@ const ChatWidget: React.FC = () => {
     const [messages, setMessages] = useState<Message[]>([
         {
             id: 1,
-            text: "Hello! I'm Naveen Patidar's AI assistant. How can I help you today?",
+            text: "Hello! I'm Ayush Tiwari's AI assistant. How can I help you today?",
             sender: 'bot',
             timestamp: new Date()
         }

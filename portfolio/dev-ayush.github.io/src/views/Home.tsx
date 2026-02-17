@@ -7,7 +7,7 @@ import { SiPython, SiTensorflow, SiPytorch, SiScikitlearn } from 'react-icons/si
 import { motion, useAnimation, AnimatePresence, Variants } from 'framer-motion'
 import { projects } from '../lib/projectData'
 import { useInView } from 'react-intersection-observer'
-import { Testimonial, ApiResponse, PersonalInfo } from '@/types/portfolio'
+import { ApiResponse, PersonalInfo } from '@/types/portfolio'
 
 
 // Specialities data with professional icons
@@ -41,8 +41,7 @@ const specialities = [
 const Home = () => {
     const topProjects = projects.slice(0, 3);
     const [expandedProjects, setExpandedProjects] = useState<number[]>([]);
-    const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
-    const [testimonialsLoading, setTestimonialsLoading] = useState(true);
+    
     const [personalInfo, setPersonalInfo] = useState<PersonalInfo | null>(null);
     const [personalLoading, setPersonalLoading] = useState(true);
     
@@ -50,30 +49,15 @@ const Home = () => {
     const heroControls = useAnimation();
     const specialitiesControls = useAnimation();
     const projectsControls = useAnimation();
-    const testimonialsControls = useAnimation();
+    
     
     // Intersection observers
     const [heroRef, heroInView] = useInView({ triggerOnce: true, threshold: 0.1 });
     const [specialitiesRef, specialitiesInView] = useInView({ triggerOnce: true, threshold: 0.1 });
     const [projectsRef, projectsInView] = useInView({ triggerOnce: true, threshold: 0.1 });
-    const [testimonialsRef, testimonialsInView] = useInView({ triggerOnce: true, threshold: 0.1 });
     
-    // Fetch testimonials
-    const fetchTestimonials = async () => {
-        try {
-            setTestimonialsLoading(true);
-            const response = await fetch('/api/testimonials?limit=6');
-            const data: ApiResponse<Testimonial[]> = await response.json();
-            
-            if (data.success && data.data) {
-                setTestimonials(data.data);
-            }
-        } catch (error) {
-            console.error('Error fetching testimonials:', error);
-        } finally {
-            setTestimonialsLoading(false);
-        }
-    };
+    
+    
 
     // Fetch personal info
     const fetchPersonalInfo = async () => {
@@ -92,15 +76,13 @@ const Home = () => {
     };
 
     useEffect(() => {
-        fetchTestimonials();
         fetchPersonalInfo();
     }, []);
     useEffect(() => {
         if (heroInView) heroControls.start('visible');
         if (specialitiesInView) specialitiesControls.start('visible');
         if (projectsInView) projectsControls.start('visible');
-        if (testimonialsInView) testimonialsControls.start('visible');
-    }, [heroInView, specialitiesInView, projectsInView, testimonialsInView, heroControls, specialitiesControls, projectsControls, testimonialsControls]);
+    }, [heroInView, specialitiesInView, projectsInView, heroControls, specialitiesControls, projectsControls]);
 
     const toggleProjectDescription = (index: number) => {
         setExpandedProjects(prev => 
@@ -403,7 +385,7 @@ const Home = () => {
                                 >
                                     <img
                                         src={personalInfo?.profileImage || './ayush1.png'}
-                                        alt={'Ayush Tiwari' || 'Profile'}
+                                        alt={personalInfo?.name ? personalInfo.name : 'Profile'}
                                         className='w-full h-full object-cover'
                                     />
                                 </motion.div>
@@ -475,8 +457,7 @@ const Home = () => {
                                         filter: 'drop-shadow(0 4px 8px rgba(79, 70, 229, 0.25))',
                                         textShadow: '0 0 30px rgba(124, 58, 237, 0.5)',
                                     }}>
-                                    {/* {personalInfo?.name || 'Loading...'} */}
-                                    {'Ayush Tiwari' || 'Loading...'}
+                                    {personalInfo?.name ? personalInfo.name : 'Ayush Tiwari'}
                                     {/* Enhanced glow effect for light mode */}
                                     <motion.span 
                                         className="absolute -inset-2 bg-gradient-to-r from-indigo-400/25 to-pink-400/25 dark:from-purple-400/40 dark:to-pink-400/40 blur-xl rounded-lg"
@@ -557,7 +538,7 @@ const Home = () => {
                                     variants={buttonVariants}
                                     whileHover="hover"
                                     whileTap={{ scale: 0.95 }}
-                                    href={'https://github.com/ayushtiwariji420'|| 'https://github.com/'}
+                                    href={'https://github.com/ayushtiwariji420'}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-gradient-to-r from-white via-gray-50 to-white dark:from-gray-800 dark:to-gray-700 text-gray-800 dark:text-gray-200 hover:from-indigo-100 hover:via-indigo-50 hover:to-purple-100 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:text-indigo-800 dark:hover:text-purple-300 transition-all duration-300 shadow-lg hover:shadow-2xl border-2 border-gray-200/80 dark:border-gray-600 text-sm sm:text-base backdrop-blur-sm font-medium"
@@ -569,7 +550,7 @@ const Home = () => {
                                     variants={buttonVariants}
                                     whileHover="hover"
                                     whileTap={{ scale: 0.95 }}
-                                    href={'https://www.linkedin.com/in/ayush-tiwari-b5799a229/' || 'https://linkedin.com/'}
+                                    href={'https://www.linkedin.com/in/ayush-tiwari-b5799a229/'}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-gradient-to-r from-white via-gray-50 to-white dark:from-gray-800 dark:to-gray-700 text-gray-800 dark:text-gray-200 hover:from-blue-100 hover:via-blue-50 hover:to-indigo-100 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:text-blue-800 dark:hover:text-blue-300 transition-all duration-300 shadow-lg hover:shadow-2xl border-2 border-gray-200/80 dark:border-gray-600 text-sm sm:text-base backdrop-blur-sm font-medium"
@@ -582,7 +563,7 @@ const Home = () => {
                                     whileHover="hover"
                                     whileTap={{ scale: 0.95 }}
                                     // href={`mailto:${personalInfo?.email || 'your.email@example.com'}`}
-                                    href={`mailto:${'ayushtiwariji420@gmail.com' || 'your.email@example.com'}`}
+                                    href="mailto:ayushtiwariji420@gmail.com"
                                     className="flex items-center px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-gradient-to-r from-white via-gray-50 to-white dark:from-gray-800 dark:to-gray-700 text-gray-800 dark:text-gray-200 hover:from-emerald-100 hover:via-emerald-50 hover:to-green-100 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:text-emerald-800 dark:hover:text-emerald-300 transition-all duration-300 shadow-lg hover:shadow-2xl border-2 border-gray-200/80 dark:border-gray-600 text-sm sm:text-base backdrop-blur-sm font-medium"
                                 >
                                     <AiOutlineMail className="mr-2 text-lg sm:text-xl" />
@@ -592,7 +573,7 @@ const Home = () => {
                                     variants={buttonVariants}
                                     whileHover="hover"
                                     whileTap={{ scale: 0.95 }}
-                                    href={'/Ayushresume.pdf' || '/resume.pdf'}
+                                    href={'/Ayushresume.pdf'}
                                     download
                                     className="flex items-center px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-gradient-to-r from-white via-gray-50 to-white dark:from-gray-800 dark:to-gray-700 text-gray-800 dark:text-gray-200 hover:from-orange-100 hover:via-orange-50 hover:to-amber-100 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:text-orange-800 dark:hover:text-orange-300 transition-all duration-300 shadow-lg hover:shadow-2xl border-2 border-gray-200/80 dark:border-gray-600 text-sm sm:text-base backdrop-blur-sm font-medium"
                                 >
@@ -816,114 +797,7 @@ const Home = () => {
                     </div>
                 </motion.section>
 
-                {/* Testimonials Section */}
-                <motion.section
-                    ref={testimonialsRef}
-                    initial="hidden"
-                    animate={testimonialsControls}
-                    variants={staggerChildrenVariants}
-                    className="w-full max-w-7xl mx-auto mb-16 sm:mb-32"
-                >
-                    <motion.h2 
-                        variants={itemVariants}
-                        className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-16 relative inline-block mx-auto"
-                    >
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-700 via-indigo-600 to-pink-600 drop-shadow-sm">
-                            Client Testimonials
-                        </span>
-                        <motion.span 
-                            className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full shadow-sm"
-                            initial={{ width: 0 }}
-                            whileInView={{ 
-                                width: "100%",
-                                transition: { duration: 0.8, delay: 0.3 }
-                            }}
-                            viewport={{ once: true }}
-                        ></motion.span>
-                    </motion.h2>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
-                        {testimonialsLoading ? (
-                            // Loading skeleton
-                            [...Array(3)].map((_, index) => (
-                                <div key={index} className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-md p-6 sm:p-8 rounded-2xl shadow-xl border-2 border-gray-200/60 dark:border-gray-700 animate-pulse">
-                                    <div className="flex items-center mb-6">
-                                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-600 dark:to-gray-700 mr-4 sm:mr-5"></div>
-                                        <div>
-                                            <div className="h-5 bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-600 dark:to-gray-700 rounded-lg w-28 mb-2"></div>
-                                            <div className="h-4 bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-600 dark:to-gray-700 rounded-lg w-36"></div>
-                                        </div>
-                                    </div>
-                                    <div className="flex mb-4 sm:mb-6 space-x-1">
-                                        {[...Array(5)].map((_, i) => (
-                                            <div key={i} className="w-5 h-5 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-600 dark:to-gray-700 rounded-sm"></div>
-                                        ))}
-                                    </div>
-                                    <div className="space-y-3">
-                                        <div className="h-4 bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-600 dark:to-gray-700 rounded-lg w-full"></div>
-                                        <div className="h-4 bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-600 dark:to-gray-700 rounded-lg w-4/5"></div>
-                                        <div className="h-4 bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-600 dark:to-gray-700 rounded-lg w-3/5"></div>
-                                    </div>
-                                </div>
-                            ))
-                        ) : testimonials.length > 0 ? (
-                            testimonials.map((testimonial, index) => (
-                                <motion.div
-                                    key={testimonial.id}
-                                    custom={index}
-                                    variants={testimonialCardVariants}
-                                    whileHover="hover"
-                                    className="bg-white/85 dark:bg-gray-800/50 backdrop-blur-md p-6 sm:p-8 rounded-2xl shadow-xl hover:shadow-2xl border-2 border-gray-200/60 dark:border-gray-700 transition-all duration-300"
-                                >
-                                    <div className="flex items-center mb-4">
-                                        {testimonial.imageUrl ? (
-                                            <img
-                                                src={testimonial.imageUrl}
-                                                alt={testimonial.name}
-                                                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full mr-3 sm:mr-4 object-cover"
-                                            />
-                                        ) : (
-                                            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full mr-3 sm:mr-4 bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
-                                                <span className="text-white font-semibold text-sm sm:text-base">
-                                                    {testimonial.name.charAt(0).toUpperCase()}
-                                                </span>
-                                            </div>
-                                        )}
-                                        <div>
-                                            <h3 className="font-semibold text-base sm:text-lg">{testimonial.name}</h3>
-                                            <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm">
-                                                {testimonial.position} at {testimonial.company}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <motion.div
-                                        variants={ratingStarsVariants}
-                                        className="flex mb-3 sm:mb-4"
-                                    >
-                                        {[...Array(testimonial.rating)].map((_, i) => (
-                                            <motion.span
-                                                key={i}
-                                                variants={starVariants}
-                                                className="text-yellow-400"
-                                            >
-                                                <FaStar className="text-sm sm:text-base" />
-                                            </motion.span>
-                                        ))}
-                                    </motion.div>
-                                    <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 italic">
-                                        &ldquo;{testimonial.content}&rdquo;
-                                    </p>
-                                </motion.div>
-                            ))
-                        ) : (
-                            // Empty state
-                            <div className="col-span-full text-center py-12">
-                                <p className="text-gray-500 dark:text-gray-400 text-lg mb-4">No testimonials available yet.</p>
-                                <p className="text-gray-400 dark:text-gray-500 text-sm">Check back later for client testimonials!</p>
-                            </div>
-                        )}
-                    </div>
-                </motion.section>
+                {/* Testimonials removed per request */}
             </div>
         </div>
     );

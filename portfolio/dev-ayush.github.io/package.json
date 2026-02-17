@@ -1,8 +1,8 @@
 {
-  "name": "dev-Naveen Patidark",
+  "name": "dev-Ayush Tiwari",
   "private": true,
   "version": "0.1.0",
-  "homepage": "https://dev-Naveen Patidark.github.io/",
+  "homepage": "https://dev-Ayush Tiwari.github.io/", 
   "scripts": {
     "dev": "next dev",
     "build": "next build",

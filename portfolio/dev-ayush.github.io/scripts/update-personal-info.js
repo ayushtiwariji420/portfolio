@@ -38,7 +38,7 @@ async function updatePersonalInfo() {
     };
 
     const values = [
-      'Naveen Patidar',                    // name
+    'Ayush Tiwari',                    // name
       'Python & Gen. AI Developer',        // title
       'naveenpatidar951@gmail.com',        // email
       '9171809182',                        // phone

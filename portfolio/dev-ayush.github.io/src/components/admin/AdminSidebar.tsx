@@ -32,7 +32,6 @@ const navigation: SidebarItem[] = [
   { name: 'Skills', href: '/admin/skills', icon: AcademicCapIcon },
   { name: 'Experience', href: '/admin/experience', icon: BriefcaseIcon },
   { name: 'Education', href: '/admin/education', icon: AcademicCapIcon },
-  { name: 'Testimonials', href: '/admin/testimonials', icon: StarIcon },
   { name: 'Contact Messages', href: '/admin/contact-messages', icon: ChatBubbleLeftRightIcon },
   { name: 'Analytics', href: '/admin/analytics', icon: ChartBarIcon },
   { name: 'Profile', href: '/admin/profile', icon: UserIcon },

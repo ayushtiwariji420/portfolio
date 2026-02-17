@@ -1,4 +1,4 @@
-# Naveen Patidar - Portfolio Website
+# Ayush Tiwari - Portfolio Website
 
 A modern, responsive portfolio website built with **Next.js 14**, **TypeScript**, and **Tailwind CSS**.
 
@@ -144,10 +144,10 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 📧 Contact
 
-**Naveen Patidar**
+**Ayush Tiwari**
 - Email: [your.email@example.com](mailto:your.email@example.com)
 - LinkedIn: [your-linkedin-profile](https://linkedin.com/in/your-profile)
-- GitHub: [dev-Naveen PatidarK](https://github.com/dev-Naveen PatidarK)
+- GitHub: [Ayush Tiwari](https://github.com/dev-Naveen PatidarK)
 
 ## 🙏 Acknowledgments
 

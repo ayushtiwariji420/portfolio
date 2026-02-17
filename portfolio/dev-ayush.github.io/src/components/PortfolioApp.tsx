@@ -55,7 +55,7 @@ export default function PortfolioApp() {
         <footer className="bg-white dark:bg-gray-800 py-6 sm:py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center text-gray-600 dark:text-gray-300 text-sm sm:text-base">
-              <p>© {new Date().getFullYear()} Naveen Patidar. All rights reserved.</p>
+              <p>© {new Date().getFullYear()} Ayush Tiwari. All rights reserved.</p>
             </div>
           </div>
         </footer>

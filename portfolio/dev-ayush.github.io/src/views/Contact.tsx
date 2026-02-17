@@ -84,7 +84,7 @@ const Contact: React.FC = () => {
                         from_email: formData.email,
                         subject: formData.subject,
                         message: formData.message,
-                        to_name: personalInfo?.name || 'Naveen Patidar',
+                        to_name: personalInfo?.name || 'Ayush Tiwari',
                         reply_to: formData.email,
                     },
                     EMAILJS_CONFIG.PUBLIC_KEY

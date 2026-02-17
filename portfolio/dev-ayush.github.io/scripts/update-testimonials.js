@@ -13,13 +13,13 @@ async function updateTestimonials() {
     console.log('Connecting to database...');
     const client = await pool.connect();
 
-    console.log('Updating testimonials to change "Pankaj" to "Naveen"...');
+    console.log('Updating testimonials to change "Pankaj" to "Ayush"...');
 
     // Update all testimonials that contain "Pankaj" in the content
     const updateQuery = `
       UPDATE testimonials
       SET
-        content = REPLACE(content, 'Pankaj', 'Naveen'),
+        content = REPLACE(content, 'Pankaj', 'Ayush'),
         updated_at = CURRENT_TIMESTAMP
       WHERE content LIKE '%Pankaj%'
     `;

@@ -21,10 +21,10 @@ export const projects = [
       endDate: "12-Jan-2023",
       tags: ['Python', 'Hubspot', 'Dropbox'],
       icons: ['bxl:vue-js', 'bxl-javascript', 'fa6-brands:github'],
-      imageUrl: 'https://via.placeholder.com/400x320',
+      imageUrl: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=1200&q=80',
       githubLink: '',
       demoLink: 'https://youtu.be/ai-xvKxqdyk?si=t1xKMhJQoGOq3EVI',
-      show: false
+      show: true
     },
     {
       title: "FinChat: AI-Powered Assistant",
