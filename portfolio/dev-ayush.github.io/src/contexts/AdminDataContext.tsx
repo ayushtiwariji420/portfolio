@@ -424,6 +424,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
       totalTestimonials: state.testimonials.length,
       totalSkills: state.skills.length,
       totalExperience: state.experiences.length,
+      totalEducation: state.education.length,
       totalBlogs: state.blogs.length,
       publishedBlogs: state.blogs.filter(b => b.published).length,
     };

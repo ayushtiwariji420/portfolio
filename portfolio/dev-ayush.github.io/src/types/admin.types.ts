@@ -96,6 +96,7 @@ export interface AdminStats {
   totalTestimonials: number;
   totalSkills: number;
   totalExperience: number;
+  totalEducation: number;
   totalBlogs: number;
   publishedBlogs: number;
 }
